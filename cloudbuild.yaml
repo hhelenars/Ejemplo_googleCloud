@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/prueba01-458910/ejemplo-python:v1.0-$COMMIT_SHA', './ejercicio python']
+    args: ['build', '-t', 'gcr.io/prueba01-458910/ejemplo-python:v1.0-$COMMIT_SHA', './ejercicio-python']
     
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/prueba01-458910/ejemplo-python:v1.0-$COMMIT_SHA']
