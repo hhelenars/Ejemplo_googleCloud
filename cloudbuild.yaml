@@ -1,0 +1,25 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/prueba01-458910/ejemplo-python:v1.0-$COMMIT_SHA', '.']
+    
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/prueba01-458910/ejemplo-python:v1.0-$COMMIT_SHA']
+    
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run',
+        'jobs',
+        'deploy',
+        'ejemplo-python-job',
+        '--image',
+        'gcr.io/prueba01-458910/ejemplo-python:v1.0-$COMMIT_SHA',
+        '--region',
+        'europe-west1'
+      ]
+
+images:
+  - 'gcr.io/prueba01-458910/ejemplo-python:v1.0-$COMMIT_SHA'
+
+logsBucket: 'gs://ejemplogcphelena/log_exports'
